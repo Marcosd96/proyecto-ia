@@ -6,9 +6,16 @@ from sklearn.ensemble import RandomForestClassifier
 from imblearn.over_sampling import SMOTE
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, classification_report
+import sys
+import os
 
 # 1. Cargar y preparar los datos
-csv_path = "StudentPerformanceFactors.csv"
+if getattr(sys, 'frozen', False):
+    # Si está empaquetado con PyInstaller
+    base_path = sys._MEIPASS
+else:
+    base_path = os.path.abspath('.')
+csv_path = os.path.join(base_path, "StudentPerformanceFactors.csv")
 df = pd.read_csv(csv_path)
 
 def clasificar_puntaje(score):
